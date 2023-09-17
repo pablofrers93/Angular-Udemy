@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter, ViewChild, ElementRef} from '@angular/core';
 import { Persona } from '../persona.model';
-import { outputAst } from '@angular/compiler';
+import { LoggingService } from '../LoggingService.service';
+import { PersonasService } from '../personas.service';
 
 @Component({
   selector: 'app-formulario',
@@ -9,15 +10,24 @@ import { outputAst } from '@angular/compiler';
 })
 export class FormularioComponent {
 
-  @Output() personaCreada = new EventEmitter<Persona>();
+  constructor(private loggingService: LoggingService,
+              private personasService: PersonasService){
+                this.personasService.saludar.subscribe(
+                  (indice: number) => alert("El indice es: "+ indice)
+                );
+              }
 
-  @ViewChild('nombreInput') nombreInput: ElementRef
-  @ViewChild('apellidoInput') apellidoInput: ElementRef
-  // nombreInput: string = '';
-  // apellidoInput: string = '';
+  // @Output() personaCreada = new EventEmitter<Persona>();
+
+  // @ViewChild('nombreInput') nombreInput: ElementRef
+  // @ViewChild('apellidoInput') apellidoInput: ElementRef
+  nombreInput: string = '';
+  apellidoInput: string = '';
 
   agregarPersona(){
-    let persona1 = new Persona(this.nombreInput.nativeElement.value, this.apellidoInput.nativeElement.value);
-    this.personaCreada.emit(persona1);
+    let persona1 = new Persona(this.nombreInput, this.apellidoInput);
+    //this.loggingService.enviaMensajeAConsola("Enviamos persona: "+persona1.nombre + " " + persona1.apellido);
+    // this.personaCreada.emit(persona1);
+    this.personasService.agregarPersona(persona1);
   }
 }
