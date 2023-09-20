@@ -21,4 +21,15 @@ export class PersonasService {
     this.personas.push(persona);
     this.loggingService.enviaMensajeAConsola("agregamos persona desde PersonasService: "+ persona.nombre)
   }
+
+  encontrarPersona(index:number){
+    let persona: Persona = this.personas[index];
+    return persona;
+  }
+
+  modificarPersona(index: number, persona: Persona){
+    let persona1: Persona = this.personas[index];
+    persona1.nombre = persona.nombre;
+    persona1.apellido = persona.apellido;
+  }
 }
