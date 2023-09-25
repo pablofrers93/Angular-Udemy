@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { LoggingService } from '../LoggingService.service';
 import { PersonasService } from '../personas.service';
 import { Persona } from '../persona.model';
 import { Router } from '@angular/router'
@@ -16,7 +15,13 @@ export class PersonasComponent implements OnInit {
     private router: Router){}
 
   ngOnInit(): void {
-  this.personas = this.personasService.personas;
+    this.personasService.obtenerPersonas()
+    .subscribe(
+      (personas: Persona[]) => {
+        this.personas = personas;
+        this.personasService.setPersonas(personas);
+      }
+    )
   }
   
   personas: Persona[] = []

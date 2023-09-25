@@ -9,19 +9,27 @@ import { DataServices } from './data.services';
 export class PersonasService {
 
   constructor(private loggingService: LoggingService,
-              private dataServices: DataServices){}
+              private dataServices: DataServices
+     ){};
 
-  personas: Persona[] = [
-    new Persona('Pablo', 'Frers'),
-    new Persona('Roberto', 'Juarez'),
-    new Persona('Maria', 'Ramirez')
-  ]
+  personas: Persona[] = [];
 
   saludar = new EventEmitter<number>();
 
+  setPersonas(personas: Persona[]){
+    this.personas = personas;
+  }
+
+  obtenerPersonas(){
+    return this.dataServices.cargarPersonas();
+  }
+
   agregarPersona(persona: Persona){
-    this.personas.push(persona);
     this.loggingService.enviaMensajeAConsola("agregamos persona desde PersonasService: "+ persona.nombre)
+    if (this.personas == null){
+      this.personas = [];
+    }
+    this.personas.push(persona); 
     this.dataServices.guardarPersonas(this.personas);
   }
 
@@ -34,9 +42,19 @@ export class PersonasService {
     let persona1: Persona = this.personas[index];
     persona1.nombre = persona.nombre;
     persona1.apellido = persona.apellido;
+    this.dataServices.modificarPersona(index, persona);
   }
 
   eliminarPersona(index: number){
     this.personas.splice(index, 1);
+    this.dataServices.eliminarPersona(index);
+    // se vuelve a guardar el arreglo para regenerar los indices de la bd
+    this.modificarPersonas();
+  }
+
+  modificarPersonas(){
+    if(this.personas != null){
+      this.dataServices.guardarPersonas(this.personas);
+    }
   }
 }
