@@ -12,6 +12,10 @@ import { PersonasComponent } from './personas/personas.component';
 import { ErrorComponent } from './error/error.component';
 import { DataServices } from './data.services';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
+import { LoginService } from './login/login.service';
+import firebase from 'firebase/compat/app';
+import { environment } from 'src/environments/environment';
 
 
 @NgModule({
@@ -20,19 +24,26 @@ import { HttpClientModule } from '@angular/common/http';
     PersonaComponent,
     FormularioComponent,
     PersonasComponent,
-    ErrorComponent
+    ErrorComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     LoggingService,
     PersonasService,
-    DataServices
+    DataServices,
+    LoginService
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+  constructor(){
+    firebase.initializeApp(environment.firebaseConfig);
+  }
+ }
