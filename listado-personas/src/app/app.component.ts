@@ -9,18 +9,18 @@ import 'firebase/database';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent{
   
   titulo = 'Listado de Personas';
 
   constructor(){}
 
-  ngOnInit(): void {
-    firebase.initializeApp({
-      apiKey: "AIzaSyDD4HVYxdL5SqFPlQiYLzzEACuHo8Jgwok",
-      authDomain: "listado-personas-34a9f.firebaseapp.com",
-    })
-  }
+  // ngOnInit(): void {
+  //   firebase.initializeApp({
+  //     apiKey: "AIzaSyDD4HVYxdL5SqFPlQiYLzzEACuHo8Jgwok",
+  //     authDomain: "listado-personas-34a9f.firebaseapp.com",
+  //   })
+  // }
 
 
 }
