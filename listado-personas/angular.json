@@ -58,12 +58,12 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "listado-personas:build"
+          },
           "configurations": {
             "production": {
               "browserTarget": "listado-personas:build:production"
-            },
-            "development": {
-              "browserTarget": "listado-personas:build:development"
             }
           }
         },

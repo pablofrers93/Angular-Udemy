@@ -16,6 +16,7 @@ import { LoginComponent } from './login/login.component';
 import { LoginService } from './login/login.service';
 import firebase from 'firebase/compat/app';
 import { environment } from 'src/environments/environment';
+import { LoginGuardian } from './login/login-guardian.service';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { environment } from 'src/environments/environment';
     LoggingService,
     PersonasService,
     DataServices,
-    LoginService
+    LoginService,
+    LoginGuardian,
   ],
   bootstrap: [AppComponent]
 })
